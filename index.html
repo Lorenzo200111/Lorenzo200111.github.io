@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Lorenzo Bindi - Robotics Engineering portfolio: robotic manipulation, computer vision, AI and control systems." />
+  <title>Lorenzo Bindi | Robotics Portfolio</title>
+
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #111827;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-solid: #ffffff;
+      --text: #f9fafb;
+      --muted: #cbd5e1;
+      --dark: #111827;
+      --dark-muted: #475569;
+      --line: rgba(255, 255, 255, 0.16);
+      --accent: #38bdf8;
+      --accent-2: #818cf8;
+      --accent-3: #22c55e;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: #f4f7fb;
+      color: var(--dark);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .hero {
+      min-height: 92vh;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.28), transparent 34%),
+        radial-gradient(circle at 80% 12%, rgba(129, 140, 248, 0.30), transparent 32%),
+        radial-gradient(circle at 70% 82%, rgba(34, 197, 94, 0.18), transparent 30%),
+        linear-gradient(135deg, #020617 0%, #0f172a 52%, #111827 100%);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 32px 20px 70px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -120px -180px -120px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.05);
+      transform: rotate(-4deg);
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(2, 6, 23, 0.78);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    }
+
+    .nav {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      color: white;
+    }
+
+    .logo {
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #020617;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 42px;
+      align-items: center;
+      padding-top: 68px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      color: #bae6fd;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 8px 13px;
+      border-radius: 999px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(44px, 8vw, 82px);
+      line-height: 0.95;
+      margin: 0 0 20px;
+      letter-spacing: -3px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(19px, 2.3vw, 27px);
+      color: var(--muted);
+      margin: 0 0 28px;
+      max-width: 760px;
+    }
+
+    .hero-text {
+      color: #dbeafe;
+      max-width: 720px;
+      margin: 0 0 32px;
+      font-size: 17px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 13px 18px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 750;
+      border: 1px solid transparent;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #020617;
+      background: linear-gradient(135deg, var(--accent), #a5b4fc);
+      box-shadow: 0 12px 35px rgba(56, 189, 248, 0.26);
+    }
+
+    .btn-ghost {
+      color: white;
+      border-color: rgba(255, 255, 255, 0.20);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .profile-box {
+      background:
+        linear-gradient(135deg, rgba(56, 189, 248, 0.20), rgba(129, 140, 248, 0.14)),
+        rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .profile-initials {
+      width: 76px;
+      height: 76px;
+      border-radius: 24px;
+      display: grid;
+      place-items: center;
+      font-size: 28px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #020617;
+      margin-bottom: 18px;
+    }
+
+    .quick-facts {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .fact {
+      padding: 13px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+    }
+
+    .fact strong {
+      display: block;
+      color: white;
+      font-size: 14px;
+    }
+
+    .fact span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    main {
+      margin-top: -44px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section {
+      padding: 72px 0;
+    }
+
+    .section:first-child {
+      padding-top: 0;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 44px);
+      letter-spacing: -1.3px;
+      line-height: 1.1;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--dark-muted);
+      max-width: 540px;
+    }
+
+    .panel {
+      background: var(--card-solid);
+      border: 1px solid #e5e7eb;
+      border-radius: var(--radius);
+      box-shadow: 0 20px 55px rgba(15, 23, 42, 0.08);
+      padding: 30px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .highlight {
+      border-left: 5px solid var(--accent);
+      background: linear-gradient(135deg, #eff6ff, #f8fafc);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 24px;
+      border-radius: 20px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.06);
+    }
+
+    .timeline-item h3 {
+      margin: 0 0 8px;
+      font-size: 22px;
+    }
+
+    .meta {
+      color: #2563eb;
+      font-weight: 750;
+      margin-bottom: 10px;
+    }
+
+    .muted {
+      color: var(--dark-muted);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .project-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.06);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      min-height: 100%;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 55px rgba(15, 23, 42, 0.12);
+    }
+
+    .project-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #dbeafe, #eef2ff);
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    .project-card h3 {
+      margin: 0 0 10px;
+      font-size: 21px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: #eef2ff;
+      color: #3730a3;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .skill-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+    }
+
+    .skill-card h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .course-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .course-list span {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      color: #1f2937;
+      padding: 10px 13px;
+      border-radius: 999px;
+      font-weight: 650;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .contact-card {
+      background: #0f172a;
+      color: white;
+      border-radius: 20px;
+      padding: 23px;
+      text-decoration: none;
+      transition: transform 0.18s ease, background 0.18s ease;
+      min-height: 130px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-3px);
+      background: #111827;
+    }
+
+    .contact-card span {
+      color: var(--muted);
+      word-break: break-word;
+    }
+
+    footer {
+      padding: 34px 20px;
+      text-align: center;
+      color: #64748b;
+      background: #eef2f7;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .about-grid,
+      .project-grid,
+      .skill-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 96px;
+      }
+
+      .nav {
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      main {
+        margin-top: -20px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .container,
+      .nav {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        justify-content: center;
+      }
+
+      .panel,
+      .timeline-item,
+      .project-card,
+      .skill-card {
+        padding: 20px;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <nav class="nav">
+      <a class="logo" href="#home" aria-label="Go to home">
+        <span class="logo-mark">LB</span>
+        <span>Lorenzo Bindi</span>
+      </a>
+
+      <div class="nav-links" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#thesis">Thesis</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contacts">Contacts</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Robotics Engineering Portfolio</div>
+        <h1>Lorenzo Bindi</h1>
+        <p class="hero-subtitle">
+          Robotics Engineering | Robotic Manipulation | Computer Vision | AI
+        </p>
+        <p class="hero-text">
+          Portfolio focused on robotic learning, dexterous manipulation, perception
+          pipelines, control systems and intelligent robotic applications.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn btn-ghost" href="#contacts">Contact Me</a>
+          <a class="btn btn-ghost" href="https://github.com/Lorenzo200111" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <div class="profile-box">
+          <div class="profile-initials">LB</div>
+          <h2 style="margin: 0 0 8px;">Robotics Engineer</h2>
+          <p style="margin: 0; color: var(--muted);">
+            Interested in scalable robotic learning for high degree-of-freedom systems,
+            reliable software and real-world robotic execution.
+          </p>
+        </div>
+
+        <div class="quick-facts">
+          <div class="fact">
+            <strong>Main focus</strong>
+            <span>Dexterous manipulation and imitation learning</span>
+          </div>
+          <div class="fact">
+            <strong>Core tools</strong>
+            <span>Python, C++, ROS, PyTorch, OpenCV, MuJoCo</span>
+          </div>
+          <div class="fact">
+            <strong>Education</strong>
+            <span>MSc in Electrical and Automation Engineering</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <main>
+    <section class="section" id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="panel highlight">
+            <h2 style="margin-top: 0;">About Me</h2>
+            <p>
+              I am a Robotics Engineering graduate with hands-on experience in
+              end-to-end robotic learning pipelines for manipulation tasks.
+              My background includes imitation learning, deep learning-based control
+              and deployment of learned policies on real robotic hardware.
+            </p>
+          </div>
+
+          <div class="panel">
+            <h2 style="margin-top: 0;">Areas of Interest</h2>
+            <p>
+              Robotic manipulation, high-DOF hands, computer vision, control systems,
+              machine learning, reinforcement learning, perception-driven robotics
+              and real-world execution of intelligent robotic systems.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="education">
+      <div class="container">
+        <div class="section-title">
+          <h2>Education</h2>
+          <p>Academic background in automation, electronics, control and machine learning.</p>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item">
+            <h3>Master’s Degree in Electrical and Automation Engineering</h3>
+            <div class="meta">University of Florence | Oct 2023 – Dec 2025 | Grade: 110/110 cum laude</div>
+            <p class="muted">
+              Focus on robotics, control systems, machine learning, computer vision
+              and autonomous systems.
+            </p>
+          </article>
+
+          <article class="timeline-item">
+            <h3>Bachelor’s Degree in Electronics and Telecommunications Engineering</h3>
+            <div class="meta">University of Florence | 2020 – 2023 | Grade: 104/110</div>
+            <p class="muted">
+              Thesis: Convolutional Neural Networks for Image Analysis.
+              Designed and trained CNNs for image classification tasks, including
+              dataset preparation, augmentation and training optimization.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="thesis">
+      <div class="container">
+        <div class="section-title">
+          <h2>Main Thesis Project</h2>
+          <p>Learning-based robotic manipulation from human demonstrations.</p>
+        </div>
+
+        <div class="panel">
+          <h3 style="font-size: 26px; margin-top: 0;">
+            Development and Implementation of Learning Techniques Based on Human Demonstrations for the Shadow Hand Robot
+          </h3>
+
+          <p>
+            The project focused on building an end-to-end robotic learning pipeline
+            for dexterous manipulation with a high degree-of-freedom robotic hand.
+            Human demonstrations were collected through teleoperation and used to
+            train learning-based control policies for sequential manipulation tasks.
+          </p>
+
+          <div class="project-grid" style="margin-top: 24px;">
+            <div class="project-card">
+              <div class="project-icon">🦾</div>
+              <h3>Robotic Manipulation</h3>
+              <p class="muted">
+                Developed learning pipelines for dexterous manipulation tasks such
+                as grasping and object rotation.
+              </p>
+            </div>
+
+            <div class="project-card">
+              <div class="project-icon">🧠</div>
+              <h3>Imitation Learning</h3>
+              <p class="muted">
+                Used human demonstrations collected through Leap Motion teleoperation
+                to train sequential policies.
+              </p>
+            </div>
+
+            <div class="project-card">
+              <div class="project-icon">👁️</div>
+              <h3>Closed-Loop Perception</h3>
+              <p class="muted">
+                Integrated vision-based pose estimation with ArUco markers into the
+                manipulation pipeline.
+              </p>
+            </div>
+
+            <div class="project-card">
+              <div class="project-icon">⚙️</div>
+              <h3>Real-World Deployment</h3>
+              <p class="muted">
+                Deployed and evaluated learned policies on real robotic hardware,
+                addressing robustness and sim-to-real issues.
+              </p>
+            </div>
+          </div>
+
+          <div class="tags">
+            <span class="tag">Shadow Hand</span>
+            <span class="tag">Imitation Learning</span>
+            <span class="tag">RNN</span>
+            <span class="tag">ArUco</span>
+            <span class="tag">Closed-loop Control</span>
+            <span class="tag">Sim-to-real</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-title">
+          <h2>Selected Projects</h2>
+          <p>Academic and personal projects in robotics, perception and control.</p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-icon">🤖</div>
+            <h3>Learning-Based Dexterous Manipulation</h3>
+            <p class="muted">
+              Robotic learning system enabling a high-DOF robotic hand to reproduce
+              human manipulation behaviors from demonstrations.
+            </p>
+            <div class="tags">
+              <span class="tag">Robotics</span>
+              <span class="tag">Manipulation</span>
+              <span class="tag">Behavior Cloning</span>
+              <span class="tag">Python</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-icon">🏭</div>
+            <h3>Collaborative Robot Programming</h3>
+            <p class="muted">
+              Programmed a Franka Emika Panda robot for pick-and-place tasks,
+              integrating perception and manipulation with Python and ROS.
+            </p>
+            <div class="tags">
+              <span class="tag">Franka Panda</span>
+              <span class="tag">ROS</span>
+              <span class="tag">Pick-and-place</span>
+              <span class="tag">Computer Vision</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-icon">🚁</div>
+            <h3>Quadcopter Control and Simulation</h3>
+            <p class="muted">
+              Modeled quadrotor dynamics and designed cascaded PID controllers
+              for stable flight control in simulation.
+            </p>
+            <div class="tags">
+              <span class="tag">Control</span>
+              <span class="tag">Dynamics</span>
+              <span class="tag">PID</span>
+              <span class="tag">Simulation</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-icon">📷</div>
+            <h3>Convolutional Neural Networks for Image Analysis</h3>
+            <p class="muted">
+              Designed and trained convolutional neural networks for image
+              classification, including dataset preparation and augmentation.
+            </p>
+            <div class="tags">
+              <span class="tag">CNN</span>
+              <span class="tag">Deep Learning</span>
+              <span class="tag">Image Classification</span>
+              <span class="tag">Keras</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-title">
+          <h2>Technical Skills</h2>
+          <p>Technologies and methods used across robotics, AI and control projects.</p>
+        </div>
+
+        <div class="skill-grid">
+          <div class="skill-card">
+            <h3>Robotic Learning</h3>
+            <p class="muted">Imitation learning, behavior cloning, sequential policies, reinforcement learning basics.</p>
+          </div>
+
+          <div class="skill-card">
+            <h3>Programming</h3>
+            <p class="muted">Python, C/C++, MATLAB, numerical computing and software prototyping.</p>
+          </div>
+
+          <div class="skill-card">
+            <h3>Machine Learning</h3>
+            <p class="muted">Neural networks, recurrent neural networks, CNNs, PyTorch, TensorFlow, Keras.</p>
+          </div>
+
+          <div class="skill-card">
+            <h3>Robotics & Control</h3>
+            <p class="muted">Kinematics, dynamics, feedback control, PID controllers, manipulation planning.</p>
+          </div>
+
+          <div class="skill-card">
+            <h3>Perception</h3>
+            <p class="muted">Computer vision, OpenCV, ArUco markers, vision-based pose estimation.</p>
+          </div>
+
+          <div class="skill-card">
+            <h3>Simulation & Systems</h3>
+            <p class="muted">ROS, Linux, MuJoCo, Gymnasium Robotics, NumPy, Scikit-learn.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="coursework">
+      <div class="container">
+        <div class="section-title">
+          <h2>Relevant Coursework</h2>
+          <p>Courses most relevant to robotics engineering and intelligent systems.</p>
+        </div>
+
+        <div class="course-list">
+          <span>Robotics</span>
+          <span>Machine Learning</span>
+          <span>Reinforcement Learning</span>
+          <span>Control Systems</span>
+          <span>Estimation and Identification</span>
+          <span>Computer Vision</span>
+          <span>Embedded Systems</span>
+          <span>Multi-Agent Systems</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="certifications">
+      <div class="container">
+        <div class="section-title">
+          <h2>Certifications & Languages</h2>
+          <p>Language certifications and communication skills.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="panel">
+            <h3 style="margin-top: 0;">Certification</h3>
+            <p class="muted">Cambridge First Certificate in English - B2</p>
+          </div>
+
+          <div class="panel">
+            <h3 style="margin-top: 0;">Languages</h3>
+            <p class="muted">
+              Italian — Native<br />
+              English — Professional working proficiency<br />
+              French — B1
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contacts">
+      <div class="container">
+        <div class="section-title">
+          <h2>Contacts</h2>
+          <p>Feel free to reach out for robotics, computer vision or AI-related opportunities.</p>
+        </div>
+
+        <div class="contact-grid">
+          <a class="contact-card" href="mailto:lorenzobindi27@gmail.com">
+            <strong>Email</strong>
+            <span>lorenzobindi27@gmail.com</span>
+          </a>
+
+          <a class="contact-card" href="https://github.com/Lorenzo200111" target="_blank" rel="noreferrer">
+            <strong>GitHub</strong>
+            <span>github.com/Lorenzo200111</span>
+          </a>
+
+          <a class="contact-card" href="https://www.linkedin.com/in/your-linkedin-profile" target="_blank" rel="noreferrer">
+            <strong>LinkedIn</strong>
+            <span>Replace with your LinkedIn URL</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Lorenzo Bindi. Built with GitHub Pages.
+  </footer>
+</body>
+</html>
